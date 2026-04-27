@@ -1,0 +1,71 @@
+# ============================================================
+# SCHEDULED LINK CHECK - GitHub Actions Workflow
+# ============================================================
+# This workflow runs on a SCHEDULE (every Monday at 9am UTC)
+# to check that all external links (https://...) in our
+# HTML files are still working. Over time, external sites
+# can go down or change URLs — this catches those issues.
+# This demonstrates CRON-based scheduling in GitHub Actions!
+# ============================================================
+
+# --- WORKFLOW NAME ---
+name: Scheduled Link Check
+
+# --- TRIGGERS ---
+on:
+  schedule:
+    # Cron syntax: minute hour day-of-month month day-of-week
+    # "0 9 * * 1" means: minute 0, hour 9, any day, any month, Monday (1)
+    - cron: '0 9 * * 1'       # Runs every Monday at 9:00 AM UTC automatically
+  workflow_dispatch:           # Also allow manual trigger (useful for testing!)
+
+# --- JOBS ---
+jobs:
+  check-links:
+    runs-on: ubuntu-latest     # Use a GitHub-hosted Ubuntu runner
+
+    steps:
+      # STEP 1: Clone the repo so we can read the HTML files
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # STEP 2: Find every external URL in our HTML and test it
+      # Uses "curl" to make HTTP requests and check the response code
+      - name: Check external links
+        run: |
+          echo "🔗 Checking external links in all HTML files..."
+          echo ""
+          
+          errors=0       # Counter for broken links
+          checked=0      # Counter for total links checked
+          
+          # Loop through every .html file in the root directory
+          for file in *.html; do
+            # Extract all URLs starting with http:// or https:// from the file
+            # grep -oP = output only the matching part, using Perl regex
+            urls=$(grep -oP 'https?://[^"'"'"'<>\s]+' "$file" 2>/dev/null || true)
+            for url in $urls; do
+              checked=$((checked + 1))
+              # curl sends an HTTP request and returns the status code (200, 404, etc.)
+              # -o /dev/null = discard response body (we only care about the status code)
+              # -s = silent mode (no progress bar)
+              # -w "%{http_code}" = output ONLY the HTTP status code
+              # --max-time 10 = timeout after 10 seconds
+              status=$(curl -o /dev/null -s -w "%{http_code}" --max-time 10 "$url" 2>/dev/null || echo "000")
+              if [ "$status" -ge 200 ] && [ "$status" -lt 400 ]; then
+                echo "  ✅ [$status] $url"           # 2xx/3xx = success or redirect (OK)
+              else
+                echo "  ❌ [$status] $url (in $file)" # 4xx/5xx/000 = broken or timed out
+                errors=$((errors + 1))
+              fi
+            done
+          done
+          
+          echo ""
+          echo "Checked $checked links, found $errors errors"
+          
+          # NOTE: This doesn't "exit 1" — broken external links are a WARNING, not a failure
+          # External sites going down isn't our fault, so we just report it
+          if [ "$errors" -gt 0 ]; then
+            echo "⚠️ Some links may be broken. Please review."
+          fi

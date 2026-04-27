@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <!-- Docker whale shape -->
+  <rect x="100" y="60" width="120" height="80" rx="10" fill="#2563eb" opacity="0.12" stroke="#2563eb" stroke-width="2"/>
+  <!-- Container boxes -->
+  <rect x="115" y="75" width="25" height="20" rx="3" fill="#3b82f6" opacity="0.6"/>
+  <rect x="148" y="75" width="25" height="20" rx="3" fill="#3b82f6" opacity="0.6"/>
+  <rect x="181" y="75" width="25" height="20" rx="3" fill="#3b82f6" opacity="0.6"/>
+  <rect x="115" y="103" width="25" height="20" rx="3" fill="#8b5cf6" opacity="0.6"/>
+  <rect x="148" y="103" width="25" height="20" rx="3" fill="#8b5cf6" opacity="0.6"/>
+  <rect x="181" y="103" width="25" height="20" rx="3" fill="#8b5cf6" opacity="0.6"/>
+  <!-- Arrow / registry -->
+  <path d="M230 100h30l15 0" stroke="#2563eb" stroke-width="2" stroke-dasharray="4"/>
+  <rect x="275" y="85" width="30" height="30" rx="6" fill="#2563eb" opacity="0.15" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="290" y="105" text-anchor="middle" font-size="10" fill="#2563eb" font-family="system-ui">📦</text>
+  <!-- Labels -->
+  <rect x="100" y="155" width="50" height="6" rx="2" fill="#e2e8f0"/>
+  <rect x="160" y="155" width="60" height="6" rx="2" fill="#e2e8f0"/>
+</svg>

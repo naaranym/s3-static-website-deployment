@@ -1,0 +1,68 @@
+# ============================================================
+# DEPLOY TO GITHUB PAGES - GitHub Actions Workflow
+# ============================================================
+# This workflow deploys our static website to GitHub Pages
+# (GitHub's free hosting service) whenever code is pushed
+# to the main branch. This is a DIFFERENT deployment target
+# than S3 — same website, different hosting!
+# ============================================================
+
+# --- WORKFLOW NAME ---
+# Shown in the GitHub Actions tab
+name: Deploy to GitHub Pages
+
+# --- TRIGGERS ---
+on:
+  push:                        # Run when code is pushed...
+    branches: [ main ]         # ...only to the "main" branch
+  workflow_dispatch:           # Also allow manual trigger via the GitHub UI button
+
+# --- PERMISSIONS ---
+# GitHub Pages requires specific permissions on the GITHUB_TOKEN
+permissions:
+  contents: read               # Read the repo code (needed for checkout)
+  pages: write                 # Write to GitHub Pages (needed to publish the site)
+  id-token: write              # OIDC token for secure Pages deployment (GitHub's requirement)
+
+# --- CONCURRENCY ---
+# Prevents multiple deployments from running at the same time
+# If you push twice quickly, the second push waits for the first to finish
+concurrency:
+  group: "pages"               # All runs in the same "pages" group are serialized
+  cancel-in-progress: false    # Don't cancel a running deploy — let it finish
+
+# --- JOBS ---
+jobs:
+  deploy:
+    # --- ENVIRONMENT ---
+    # Links this job to a GitHub "environment" called "github-pages"
+    # The URL will show up as a clickable link in the Actions UI after deploy
+    environment:
+      name: github-pages                              # The environment name (auto-created by GitHub Pages)
+      url: ${{ steps.deployment.outputs.page_url }}   # The live URL, output by the deploy step
+
+    runs-on: ubuntu-latest     # Use a GitHub-hosted Ubuntu runner (free Linux VM)
+
+    # --- STEPS ---
+    steps:
+      # STEP 1: Clone the repository onto the runner
+      - name: Checkout
+        uses: actions/checkout@v6          # Official GitHub action to clone our repo
+
+      # STEP 2: Configure GitHub Pages settings
+      # Prepares the Pages service to receive our files
+      - name: Setup Pages
+        uses: actions/configure-pages@v5   # Official action that configures Pages
+
+      # STEP 3: Package the website files into an artifact (a zip file)
+      # GitHub Pages deploys from artifacts, not directly from files
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3   # Packages files into a deployable artifact
+        with:
+          path: '.'            # Upload EVERYTHING in the current directory (our whole website)
+
+      # STEP 4: Deploy the artifact to GitHub Pages
+      # This makes the site live at https://<org>.github.io/<repo>/
+      - name: Deploy to GitHub Pages
+        id: deployment                     # Give this step an ID so we can read its outputs (the URL)
+        uses: actions/deploy-pages@v4      # Official action that publishes to GitHub Pages

@@ -1,0 +1,60 @@
+# ============================================================
+# WELCOME NEW CONTRIBUTORS - GitHub Actions Workflow
+# ============================================================
+# This workflow automatically posts a friendly comment
+# when someone opens a new Issue or Pull Request.
+# It demonstrates EVENT-DRIVEN automation — Actions can
+# respond to GitHub events beyond just code pushes!
+# ============================================================
+
+# --- WORKFLOW NAME ---
+name: Welcome New Contributors
+
+# --- TRIGGERS ---
+# This workflow does NOT trigger on push — it triggers on GitHub events
+on:
+  issues:                      # Trigger when something happens with Issues
+    types: [opened]            # But ONLY when a NEW issue is opened (not edited, closed, etc.)
+  pull_request:                # Also trigger on Pull Request events
+    types: [opened]            # Again, only when a NEW PR is opened
+
+# --- JOBS ---
+jobs:
+  welcome:
+    runs-on: ubuntu-latest     # Use a GitHub-hosted Ubuntu runner
+
+    steps:
+      # STEP 1: Post a welcome comment using the GitHub API
+      # This step uses "github-script" — a special action that lets you
+      # write JavaScript code that talks directly to the GitHub API
+      - name: Welcome message
+        uses: actions/github-script@v7     # Official action for running JS with GitHub API access
+        with:
+          script: |
+            // --- Determine if this was triggered by an Issue or a PR ---
+            const isIssue = context.eventName === 'issues';
+
+            // --- Get the username of who opened it ---
+            const author = isIssue 
+              ? context.payload.issue.user.login        // Issue author
+              : context.payload.pull_request.user.login; // PR author
+
+            // --- Get the issue/PR number (e.g., #1, #2, etc.) ---
+            const number = isIssue 
+              ? context.payload.issue.number 
+              : context.payload.pull_request.number;
+            
+            // --- Choose the right message based on event type ---
+            const message = isIssue
+              ? `👋 Hey @${author}! Thanks for opening this issue!\n\nWe'll review it shortly. In the meantime, feel free to check out our [contributing guidelines](CONTRIBUTING.md).`
+              : `🎉 Hey @${author}! Thanks for submitting this PR!\n\nWe'll review your changes soon. Make sure all checks pass! ✅`;
+            
+            // --- Post the comment using GitHub REST API ---
+            // "github.rest.issues.createComment" works for both Issues AND PRs
+            // (In GitHub's API, PRs are a type of Issue — they share the same comment system)
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,       // The org/user that owns the repo
+              repo: context.repo.repo,         // The repo name
+              issue_number: number,            // Which issue/PR to comment on
+              body: message                    // The comment text
+            });

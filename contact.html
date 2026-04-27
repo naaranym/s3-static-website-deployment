@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - YVC-CloudDev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.svg" alt="YVC-CloudDev Logo" width="40" height="40">
+                <span>YVC-CloudDev</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <span class="badge">💬 Let's Connect</span>
+            <h1>Get in <span class="gradient-text">Touch</span></h1>
+            <p>Have a question, suggestion, or want to collaborate? We'd love to hear from you.</p>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h2>Send Us a Message</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required placeholder="John">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Choose a topic...</option>
+                                <option value="general">General Question</option>
+                                <option value="course">Course Inquiry</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="bug">Report a Bug</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us what's on your mind..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-full">Send Message</button>
+                    </form>
+                    <div class="form-success" id="formSuccess" hidden>
+                        <div class="success-icon">✅</div>
+                        <h3>Message Sent!</h3>
+                        <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="contact-info-card">
+                        <div class="info-icon">📧</div>
+                        <h3>Email Us</h3>
+                        <p>hello@yvc-clouddev.com</p>
+                        <span>We respond within 24 hours</span>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="info-icon">💬</div>
+                        <h3>Join Discord</h3>
+                        <p>discord.gg/yvc-clouddev</p>
+                        <span>Chat with the community</span>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="info-icon">🐙</div>
+                        <h3>GitHub Discussions</h3>
+                        <p>github.com/yvc-clouddev/discussions</p>
+                        <span>Ask questions, share ideas</span>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="info-icon">🐦</div>
+                        <h3>Follow Us</h3>
+                        <p>@yvc-clouddev</p>
+                        <span>Latest news and tips</span>
+                    </div>
+
+                    <!-- FAQ -->
+                    <div class="faq-section">
+                        <h3>Frequently Asked Questions</h3>
+                        <div class="faq-list">
+                            <details class="faq-item">
+                                <summary>Are the courses really free?</summary>
+                                <p>Yes! All core course materials are completely free and open source. We believe education should be accessible to everyone.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>Do I need prior experience with CI/CD?</summary>
+                                <p>Not at all. Our beginner courses start from the very basics. You just need to know basic Git commands.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>Can I use these projects in my portfolio?</summary>
+                                <p>Absolutely! Fork any project, customize it, and showcase it. That's exactly what they're designed for.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>How do I deploy this site with GitHub Actions?</summary>
+                                <p>Fork this repository, enable GitHub Pages in your repo settings, and the included workflow will handle the rest automatically!</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map / Location Section -->
+    <section class="location-section">
+        <div class="container">
+            <div class="location-card">
+                <div class="location-text">
+                    <h2>We're <span class="gradient-text">Global</span></h2>
+                    <p>YVC-CloudDev is a fully remote team spread across the world. Our content is created by developers from 15+ countries, and our community spans every continent.</p>
+                    <div class="location-stats">
+                        <div class="loc-stat">
+                            <strong>15+</strong>
+                            <span>Countries</span>
+                        </div>
+                        <div class="loc-stat">
+                            <strong>24/7</strong>
+                            <span>Community Support</span>
+                        </div>
+                        <div class="loc-stat">
+                            <strong>100%</strong>
+                            <span>Remote</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="location-image">
+                    <img src="images/global-map.svg" alt="Global team illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="images/logo.svg" alt="YVC-CloudDev" width="36" height="36">
+                        <span>YVC-CloudDev</span>
+                    </a>
+                    <p>Learn CI/CD and GitHub Actions through hands-on projects and real-world workflows.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub"><img src="images/icon-github.svg" alt="GitHub" width="24" height="24"></a>
+                        <a href="#" aria-label="Twitter"><img src="images/icon-twitter.svg" alt="Twitter" width="24" height="24"></a>
+                        <a href="#" aria-label="YouTube"><img src="images/icon-youtube.svg" alt="YouTube" width="24" height="24"></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Pages</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">Official Docs</a></li>
+                        <li><a href="https://github.com/marketplace?type=actions" target="_blank" rel="noopener noreferrer">Marketplace</a></li>
+                        <li><a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <p>Get the latest tutorials and tips.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="your@email.com" required aria-label="Email address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 YVC-CloudDev. Built with ❤️ and deployed with GitHub Actions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    <script src="js/main.js"></script>
+</body>
+</html>

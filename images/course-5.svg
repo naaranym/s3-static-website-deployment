@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <!-- Code file -->
+  <rect x="100" y="30" width="120" height="140" rx="8" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="112" y="44" width="40" height="6" rx="2" fill="#8b5cf6" opacity="0.5"/>
+  <rect x="112" y="58" width="96" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="112" y="68" width="80" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="112" y="78" width="88" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="120" y="92" width="72" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="120" y="102" width="60" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="112" y="116" width="84" height="4" rx="1" fill="#e2e8f0"/>
+  <rect x="112" y="126" width="96" height="4" rx="1" fill="#e2e8f0"/>
+  <!-- Curly braces decoration -->
+  <text x="80" y="105" font-size="40" fill="#8b5cf6" opacity="0.2" font-family="monospace">{</text>
+  <text x="225" y="105" font-size="40" fill="#8b5cf6" opacity="0.2" font-family="monospace">}</text>
+  <!-- Gear -->
+  <circle cx="250" cy="50" r="18" fill="#f59e0b" opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+  <circle cx="250" cy="50" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
+</svg>

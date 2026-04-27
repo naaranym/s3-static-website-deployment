@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <!-- Shield -->
+  <path d="M160 30l60 20v50c0 35-25 60-60 75-35-15-60-40-60-75V50l60-20z" fill="#2563eb" opacity="0.08" stroke="#2563eb" stroke-width="2"/>
+  <path d="M145 95l10 10 25-25" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Lock -->
+  <rect x="62" y="120" width="30" height="25" rx="4" fill="#8b5cf6" opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M71 120v-8a6 6 0 0112 0v8" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+  <!-- Key -->
+  <circle cx="252" cy="130" r="12" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+  <line x1="264" y1="130" x2="285" y2="130" stroke="#f59e0b" stroke-width="1.5"/>
+  <line x1="280" y1="130" x2="280" y2="138" stroke="#f59e0b" stroke-width="1.5"/>
+  <line x1="275" y1="130" x2="275" y2="136" stroke="#f59e0b" stroke-width="1.5"/>
+</svg>

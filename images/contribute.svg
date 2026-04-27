@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" fill="none">
+  <!-- People collaborating -->
+  <circle cx="100" cy="100" r="20" fill="#dbeafe"/>
+  <circle cx="100" cy="88" r="10" fill="#3b82f6"/>
+  <ellipse cx="100" cy="112" rx="14" ry="9" fill="#3b82f6" opacity="0.5"/>
+
+  <circle cx="200" cy="100" r="20" fill="#ede9fe"/>
+  <circle cx="200" cy="88" r="10" fill="#8b5cf6"/>
+  <ellipse cx="200" cy="112" rx="14" ry="9" fill="#8b5cf6" opacity="0.5"/>
+
+  <!-- Code brackets between them -->
+  <text x="140" y="95" font-size="28" fill="#22c55e" opacity="0.4" font-family="monospace">&lt;/&gt;</text>
+
+  <!-- Pull request arrow -->
+  <path d="M120 100h12m48 0h12" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Git merge icon -->
+  <circle cx="150" cy="140" r="16" fill="#22c55e" opacity="0.12" stroke="#22c55e" stroke-width="1.5"/>
+  <circle cx="146" cy="135" r="3" fill="#22c55e"/>
+  <circle cx="154" cy="135" r="3" fill="#22c55e"/>
+  <circle cx="150" cy="148" r="3" fill="#22c55e"/>
+  <line x1="146" y1="138" x2="150" y2="145" stroke="#22c55e" stroke-width="1.5"/>
+  <line x1="154" y1="138" x2="150" y2="145" stroke="#22c55e" stroke-width="1.5"/>
+
+  <!-- Stars -->
+  <text x="70" y="60" font-size="14" fill="#f59e0b" opacity="0.5">★</text>
+  <text x="230" y="55" font-size="10" fill="#f59e0b" opacity="0.4">★</text>
+  <text x="150" y="45" font-size="12" fill="#f59e0b" opacity="0.3">★</text>
+</svg>

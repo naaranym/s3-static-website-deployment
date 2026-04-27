@@ -1,0 +1,137 @@
+# ============================================================
+# HTML VALIDATION & LINK CHECK - GitHub Actions Workflow
+# ============================================================
+# This workflow runs on every push and pull request to main.
+# It checks that all required files exist, HTML structure
+# is valid, and internal links aren't broken.
+# Think of it as a "quality gate" — code must pass these
+# checks before it's considered safe to deploy.
+# This is a CI (Continuous Integration) workflow!
+# ============================================================
+
+# --- WORKFLOW NAME ---
+name: HTML Validation & Link Check
+
+# --- TRIGGERS ---
+# This workflow runs on TWO different events:
+on:
+  pull_request:                # Run when someone opens/updates a PR targeting main
+    branches: [ main ]         # Only PRs that want to merge INTO main
+  push:                        # Also run when code is directly pushed
+    branches: [ main ]         # Only pushes to main
+
+# --- JOBS ---
+jobs:
+  validate:
+    runs-on: ubuntu-latest     # Use a GitHub-hosted Ubuntu runner
+
+    # --- STEPS ---
+    # Each step is a check. If ANY step fails (exit 1), the whole workflow fails
+    # and the PR/push is marked with a red ❌
+    steps:
+
+      # STEP 1: Clone the repository
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # STEP 2: Make sure all 5 HTML pages exist
+      # If a developer accidentally deletes a page, this catches it
+      - name: Check HTML files exist
+        run: |
+          echo "📄 Checking HTML files..."
+          for file in index.html about.html courses.html projects.html contact.html; do
+            if [ -f "$file" ]; then          # -f checks if a file exists
+              echo "✅ $file exists"
+            else
+              echo "❌ $file is missing!"
+              exit 1                          # exit 1 = FAIL the step (and the whole workflow)
+            fi
+          done
+
+      # STEP 3: Verify the CSS file exists
+      - name: Check CSS files
+        run: |
+          echo "🎨 Checking CSS files..."
+          if [ -f "css/style.css" ]; then
+            echo "✅ css/style.css exists"
+          else
+            echo "❌ css/style.css is missing!"
+            exit 1
+          fi
+
+      # STEP 4: Verify the JavaScript file exists
+      - name: Check JS files
+        run: |
+          echo "⚡ Checking JS files..."
+          if [ -f "js/main.js" ]; then
+            echo "✅ js/main.js exists"
+          else
+            echo "❌ js/main.js is missing!"
+            exit 1
+          fi
+
+      # STEP 5: Count image files — warn if too few
+      # This doesn't fail, just warns (no "exit 1" for low count)
+      - name: Check image assets
+        run: |
+          echo "🖼️ Checking image files..."
+          image_count=$(find images/ -name "*.svg" | wc -l)   # Count all .svg files
+          echo "Found $image_count SVG images"
+          if [ "$image_count" -lt 5 ]; then
+            echo "⚠️ Warning: Less than 5 images found"       # Warning only, doesn't fail
+          else
+            echo "✅ Image assets look good!"
+          fi
+
+      # STEP 6: Validate that each HTML file has proper structure
+      # Checks for <!DOCTYPE html>, <html>, and </html> tags
+      - name: Validate HTML structure
+        run: |
+          echo "🔍 Checking HTML structure..."
+          for file in *.html; do
+            # grep -q = quiet search, returns true/false
+            if grep -q "<!DOCTYPE html>" "$file" && grep -q "<html" "$file" && grep -q "</html>" "$file"; then
+              echo "✅ $file has valid HTML structure"
+            else
+              echo "❌ $file has invalid HTML structure!"
+              exit 1
+            fi
+          done
+
+      # STEP 7: Check that all internal links (href="page.html") point to real files
+      # This prevents deploying a site with broken navigation
+      - name: Check for broken internal links
+        run: |
+          echo "🔗 Checking internal links..."
+          errors=0
+          for file in *.html; do
+            # Extract all href="something.html" links (skip # anchors and external URLs)
+            links=$(grep -oP 'href="([^"#][^"]*\.html)"' "$file" | grep -oP '"[^"]*"' | tr -d '"' || true)
+            for link in $links; do
+              if [ ! -f "$link" ]; then       # Check if the linked file actually exists
+                echo "❌ Broken link in $file: $link"
+                errors=$((errors + 1))
+              fi
+            done
+          done
+          if [ "$errors" -eq 0 ]; then
+            echo "✅ All internal links are valid!"
+          else
+            echo "❌ Found $errors broken link(s)"
+            exit 1                             # Fail if any links are broken
+          fi
+
+      # STEP 8: Print a summary of the site
+      # This always runs (even if previous steps pass) — just informational
+      - name: Summary
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "✅ All validation checks passed!"
+          echo "=========================================="
+          echo ""
+          echo "📊 Site Statistics:"
+          echo "  HTML files: $(find . -maxdepth 1 -name '*.html' | wc -l)"
+          echo "  CSS files:  $(find css/ -name '*.css' | wc -l)"
+          echo "  JS files:   $(find js/ -name '*.js' | wc -l)"
+          echo "  Images:     $(find images/ -type f | wc -l)"
